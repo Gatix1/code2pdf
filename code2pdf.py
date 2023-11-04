@@ -22,32 +22,34 @@ def convert_c_file_to_pdf(input_file, output_dir):
     output_pdf_path = os.path.join(output_dir, f"{os.path.splitext(file_name)[0]}.pdf")
     pdf.output(output_pdf_path)
 
-input_directory = ""
-output_directory = ""
+def main():
+    try:
+        input_directory = ""
+        output_directory = ""
 
-# Reading arguments
-if len(sys.argv) == 3:
-    input_directory = sys.argv[1]
-    output_directory = sys.argv[2]
-elif len(sys.argv) == 2:
-    if sys.argv[1] == "-h":
-        print("aaa")
-        exit();
-else:
-    print("Usage: \"python pdf_converter <input_path> <output_path>\"")
-    print("Help: \"python pdf_converter -h\"")
-    exit()
+        # Reading arguments
+        if len(sys.argv) == 3:
+            input_directory = sys.argv[1]
+            output_directory = sys.argv[2]
+        else:
+            print("Incorrect Usage!\nUsage: \"python code2pdf.py <input_folder_path> <output_folder_path>\"")
+            return
 
-print(input_directory, output_directory)
+        # Making output directory if it doesnt exist
+        if not(os.path.exists(output_directory) and os.path.isdir(output_directory)):
+            os.makedirs(output_directory)
 
-if not(os.path.exists(output_directory) and os.path.isdir(output_directory)):
-    os.makedirs(output_directory)
+        # List all .c files in the input directory
+        c_files = [os.path.join(input_directory, f) for f in os.listdir(input_directory) if f.endswith(".c")]
 
-# List all .c files in the input directory
-c_files = [os.path.join(input_directory, f) for f in os.listdir(input_directory) if f.endswith(".c")]
+        # Convert each .c file to a separate PDF
+        for c_file in c_files:
+            convert_c_file_to_pdf(c_file, output_directory)
 
-# Convert each .c file to a separate PDF
-for c_file in c_files:
-    convert_c_file_to_pdf(c_file, output_directory)
+        print("Converting finished successfully!")
+    except Exception:
+        print(Exception)
 
-print("Converting finished successfully!")
+
+if __name__ == '__main__':
+    main()
