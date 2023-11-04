@@ -29,4 +29,4 @@ code2pdf will process all the .c files in the specified source code folder and g
 We welcome contributions to the development of the project. If you have suggestions, bug fixes, or improvements, feel free to create pull requests.
 
 ------
-I hope this documentation helps you create the documentation for your code2pdf repository on GitHub.
+I hope this documentation helps you.
